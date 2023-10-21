@@ -33,7 +33,7 @@
             <div class="container">
                 <!-- Start Header Navigation -->
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="/home"><img src="images/logo.png" class="logo" alt=""></a>
+                    <a class="navbar-brand" href="/"><img src="images/logo.png" class="logo" alt=""></a>
                 </div>
                 <!-- End Header Navigation -->
 

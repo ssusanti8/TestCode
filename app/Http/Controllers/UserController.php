@@ -15,7 +15,11 @@ class UserController extends Controller
      */
     public function index()
     {
+
         $users = User::all();
+        $userQuery = User::query();
+        $userQuery->where('name', 'like', '%'.request('q').'%');
+        $users = $userQuery->paginate(10);
         return view('user.index', [
             'users' => $users,
             'title' => 'Users'
@@ -99,10 +103,10 @@ class UserController extends Controller
 
         if($user){
             //redirect dengan pesan sukses
-            return redirect()->route('userKu.index')->with(['success' => 'Data Berhasil Disimpan!']);
+            return redirect()->route('user.index')->with(['success' => 'Data Berhasil Disimpan!']);
         }else{
             //redirect dengan pesan error
-            return redirect()->route('userKu.index')->with(['error' => 'Data Gagal Disimpan!']);
+            return redirect()->route('user.index')->with(['error' => 'Data Gagal Disimpan!']);
         }
         
     }
@@ -117,6 +121,6 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
         $user->delete();
-        return redirect()->route('userKu.index');
+        return redirect()->route('user.index');
     }
 }

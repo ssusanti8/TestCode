@@ -56,35 +56,23 @@
         </ul>
     </div>
 </nav>
-<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-<h1 class="h2">Edit Users</h1>
-<div class="col-lg-8">
-    <!-- Title -->
-    <br><br>
-    <form action="{{ route('user.update', $user->id) }}" method="post">
-        @csrf
-        @method('PUT')
-        <div class="form-group">
-            <label for="name">Nama</label>
-            <input type="text" class="form-control" readonly name="name" value="{{ old('name', $user->name) }}"></br>
+            
+            </div>
         </div>
-        <div class="form-group">
-            <label for="email">Email</label>
-            <input type="text" class="form-control" readonly name="email" value="{{ old('email', $user->email) }}"></br>
-        </div>
-        <div class="form-group">
-            <label for="password">Password</label>
-            <input type="password" class="form-control" readonly name="password" value="{{ old('password', $user->password) }}"></br>
-        </div>
-        <div class="form-group">
-            <label for="levels">Level</label>
-            <select type="text" class="form-control" required="required" name="role" value="{{ old('role', $user->role) }}">
-                <option {{ $user->role == 'Member' ? 'selected' : '' }}>Member</option>
-                <option {{ $user->role == 'Administrator' ? 'selected' : '' }}>Administartor</option>            
-            </select>
-            <br>
-        </div>
-        <button type="submit" name="edit" class="btn btn-primary float-right">Edit User</button>
-    </form><br><br>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
-</div>
+    <script>
+        //message with toastr
+        @if(session()->has('success'))
+        
+            toastr.success('{{ session('success') }}', 'BERHASIL!'); 
+
+        @elseif(session()->has('error'))
+
+            toastr.error('{{ session('error') }}', 'GAGAL!'); 
+            
+        @endif
+    </script>
