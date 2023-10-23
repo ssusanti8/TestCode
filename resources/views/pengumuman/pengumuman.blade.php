@@ -61,58 +61,55 @@
 </nav>
             
 <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-<!-- Post Content Column -->
-<div class="card border-0 shadow rounded">
-    <br>
-    <div class="card-header text-center">
-        <h3>DATA MEMBER & ADMINISTRATOR</h3>
-    </div>
-    <!-- Title -->
-    <div class="card body">
-        <br>
-        <div class="cardsearch">
-            <form method="GET" action="" accept-charset="UTF-8" class="form-inline">
-                <div class="form-group">
-                    <label for="q" class="control-label">{{ __('Cari') }}</label>
-                    <input placeholder="{{ __('name') }}" name="q" type="text" id="q" class="form-control mx-sm-2" value="{{ request('q') }}">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card-header text-center">
+                    <h3>Pengumuman</h3>
                 </div>
-                <input type="submit" value="{{ __('Cari') }}" class="btn btn-secondary">
-            </form>
+                <div class="card border-0 shadow rounded">
+                    <div class="card-body">
+                        <table class="table table-bordered">
+                            <thead>
+                              <tr><center>
+                                <th scope="col">Judul</th>
+                                <th scope="col">Pengumuman</th>
+                                </center>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              @forelse ($pengumumans as $pengumuman)
+                                <tr>
+                                    <td>{{ $pengumuman->judul }}</td>
+                                    <td class="text-center">
+                                        <iframe src="{{ Storage::url('public/pengumumans/' . $pengumuman->dokumen) }}" width="600" height="400"></iframe>                                    </td>
+                                    
+                                </tr>
+                              @empty
+                                  <div class="alert alert-danger">
+                                      Data katalog belum Tersedia.
+                                  </div>
+                              @endforelse
+                            </tbody>
+                          </table>  
+                         
+                    </div>
+                </div>
+            </div>
         </div>
-        <br>
-        <table class="table table-bordered table-striped">
-            <thead>
-                <tr>
-                    <th>No</th>
-                    <th>Username</th>
-                    <th>Email</th>
-                    <th>Role</th>
-                    <th>Aksi</th>
-                </tr>
-            </thead>
-            <tbody>
-                @forelse ($users as $user)
-                <tr>
-                    <td class="text-center">{{ $loop->iteration }}</td>
-                    <td>{{ $user->name }}</td>
-                    <td>{{ $user->email }}</td>
-                    <td>{{ $user->role }}</td>
-                    <td class="text-center">
-                        <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('user.destroy', $user->id) }}" method="POST">
-                            <a href="{{ route('user.edit', $user->id) }}" class="btn btn-sm btn-warning">EDIT</a>
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-sm btn-danger">HAPUS</button>
-                        </form>
-                    </td>
-                </tr>
-                @empty
-                <div class="alert alert-danger">
-                    Data user belum Tersedia.
-                </div>
-                @endforelse
-                {{ $users->links() }}
-            </tbody>
-        </table>
     </div>
-</div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+    <script>
+        //message with toastr
+        @if(session()->has('success'))
+        
+            toastr.success('{{ session('success') }}', 'BERHASIL!'); 
+
+        @elseif(session()->has('error'))
+
+            toastr.error('{{ session('error') }}', 'GAGAL!'); 
+            
+        @endif
+    </script>

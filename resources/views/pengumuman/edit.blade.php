@@ -60,59 +60,44 @@
     </div>
 </nav>
             
-<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-<!-- Post Content Column -->
-<div class="card border-0 shadow rounded">
-    <br>
-    <div class="card-header text-center">
-        <h3>DATA MEMBER & ADMINISTRATOR</h3>
-    </div>
-    <!-- Title -->
-    <div class="card body">
-        <br>
-        <div class="cardsearch">
-            <form method="GET" action="" accept-charset="UTF-8" class="form-inline">
-                <div class="form-group">
-                    <label for="q" class="control-label">{{ __('Cari') }}</label>
-                    <input placeholder="{{ __('name') }}" name="q" type="text" id="q" class="form-control mx-sm-2" value="{{ request('q') }}">
-                </div>
-                <input type="submit" value="{{ __('Cari') }}" class="btn btn-secondary">
-            </form>
-        </div>
-        <br>
-        <table class="table table-bordered table-striped">
-            <thead>
-                <tr>
-                    <th>No</th>
-                    <th>Username</th>
-                    <th>Email</th>
-                    <th>Role</th>
-                    <th>Aksi</th>
-                </tr>
-            </thead>
-            <tbody>
-                @forelse ($users as $user)
-                <tr>
-                    <td class="text-center">{{ $loop->iteration }}</td>
-                    <td>{{ $user->name }}</td>
-                    <td>{{ $user->email }}</td>
-                    <td>{{ $user->role }}</td>
-                    <td class="text-center">
-                        <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('user.destroy', $user->id) }}" method="POST">
-                            <a href="{{ route('user.edit', $user->id) }}" class="btn btn-sm btn-warning">EDIT</a>
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+            <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card border-0 shadow rounded">
+                    <div class="card-body">
+                        <form action="{{ route('pengumuman.update', $pengumuman->id) }}" method="POST" enctype="multipart/form-data">
                             @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-sm btn-danger">HAPUS</button>
-                        </form>
-                    </td>
-                </tr>
-                @empty
-                <div class="alert alert-danger">
-                    Data user belum Tersedia.
+                            @method('PUT')
+                            <div class="form-group">
+                                <label class="font-weight-bold">Judul</label>
+                                <input type="text" class="form-control @error('judul') is-invalid @enderror" name="judul" value="{{ old('judul', $pengumuman->judul) }}" placeholder="Masukkan judul">
+
+                                <!-- error message untuk judul -->
+                                @error('judul')
+                                    <div class="alert alert-danger mt-2">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <label class="font-weight-bold">Dokumen</label>
+                                <input type="file" class="form-control @error('dokumen') is-invalid @enderror" name="dokumen" value="{{ old('dokumen', $pengumuman->dokumen) }}" placeholder="Masukkan dokumen">
+
+                                <!-- error message untuk harga -->
+                                @error('dokumen')
+                                    <div class="alert alert-danger mt-2">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                            <button type="submit" class="btn btn-md btn-primary">UPADTE</button>
+                            <a href="{{ url()->previous() }}" class="btn btn-warning">CANCEL</a>
+                        </form> 
+                    </div>
                 </div>
-                @endforelse
-                {{ $users->links() }}
-            </tbody>
-        </table>
+            </div>
+        </div>
     </div>
-</div>
+</body>
+</html>

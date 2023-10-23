@@ -40,15 +40,18 @@
             <li class="nav-item">
                         @can('Member')
                         <a class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-3 mb-1 text-muted border-bottom" aria-current="page" href="/dashboard">
-                            <b><span data-feather="arrow-left" class="align-text-bottom" style="font-weight: bold;">DASHBOARD Member</span></b>
+                            <b><span data-feather="arrow-left" class="align-text-bottom" style="font-weight: bold;">DASHBOARD MEMBER</span></b>
                         </a>
-                            <li class="nav-item"><a class="nav-link" href="{{ ('#') }}">Katalog Member</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{{ ('/pengumumanku') }}">Pemberitahuan</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{{ ('/katalogku') }}">Katalog Member</a></li>
                         @endcan
                         @can('Administrator')
                         <a class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-3 mb-1 text-muted border-bottom" aria-current="page" href="/dashboard">
-                            <b><span data-feather="arrow-left" class="align-text-bottom" style="font-weight: bold;">DASHBOARD Administrator</span></b>
+                            <b><span data-feather="arrow-left" class="align-text-bottom" style="font-weight: bold;"><center>DASHBOARD ADMINISTRATOR</center></span></b>
                         </a>
-                            <li class="nav-item"><a class="nav-link" href="{{ ('#') }}">Manage Katalog</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{{ ('/pengumuman') }}">Manage Pemberitahuan</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{{ ('/katalog') }}">Manage Katalog</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{{ ('/filexcels') }}">Manage Excel</a></li>
                             <li class="nav-item"><a class="nav-link" href="{{ ('/user') }}">Manage Member</a></li>
                         @endcan
             </li>
@@ -57,22 +60,56 @@
     </div>
 </nav>
             
+<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card-header text-center">
+                <h3>Pengumuman</h3>
+            </div>
+            <div class="card border-0 shadow rounded">
+                <div class="card-body">
+                    <table class="table table-bordered">
+                        <thead>
+                          <tr><center>
+                            <th scope="col">Judul</th>
+                            <th scope="col">Pengumuman</th>
+                            </center>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          @forelse ($pengumumans as $pengumuman)
+                            <tr>
+                                <td>{{ $pengumuman->judul }}</td>
+                                <td class="text-center">
+                                    <iframe src="{{ Storage::url('public/pengumumans/' . $pengumuman->dokumen) }}" width="600" height="400"></iframe>                                    </td>
+                                
+                            </tr>
+                          @empty
+                              <div class="alert alert-danger">
+                                  Data katalog belum Tersedia.
+                              </div>
+                          @endforelse
+                        </tbody>
+                      </table>  
+                     
+                </div>
             </div>
         </div>
     </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
-    <script>
-        //message with toastr
-        @if(session()->has('success'))
+<script>
+    //message with toastr
+    @if(session()->has('success'))
+    
+        toastr.success('{{ session('success') }}', 'BERHASIL!'); 
+
+    @elseif(session()->has('error'))
+
+        toastr.error('{{ session('error') }}', 'GAGAL!'); 
         
-            toastr.success('{{ session('success') }}', 'BERHASIL!'); 
-
-        @elseif(session()->has('error'))
-
-            toastr.error('{{ session('error') }}', 'GAGAL!'); 
-            
-        @endif
-    </script>
+    @endif
+</script>

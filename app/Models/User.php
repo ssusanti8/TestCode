@@ -43,4 +43,19 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function katalogs()
+    {
+        return $this->belongsTo(Katalog::class);
+    }
+
+    public function pengumumans()
+    {
+        return $this->belongsTo(Pengumuman::class);
+    }
+
+    public function filexcels()
+    {
+        return $this->belongsTo(Pengumuman::class);
+    }
 }

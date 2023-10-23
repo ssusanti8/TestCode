@@ -60,59 +60,61 @@
     </div>
 </nav>
             
-<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-<!-- Post Content Column -->
-<div class="card border-0 shadow rounded">
-    <br>
-    <div class="card-header text-center">
-        <h3>DATA MEMBER & ADMINISTRATOR</h3>
-    </div>
-    <!-- Title -->
-    <div class="card body">
-        <br>
-        <div class="cardsearch">
-            <form method="GET" action="" accept-charset="UTF-8" class="form-inline">
-                <div class="form-group">
-                    <label for="q" class="control-label">{{ __('Cari') }}</label>
-                    <input placeholder="{{ __('name') }}" name="q" type="text" id="q" class="form-control mx-sm-2" value="{{ request('q') }}">
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+                <div class="card-header text-center">
+                    <h3>Katalog Member</h3>
                 </div>
-                <input type="submit" value="{{ __('Cari') }}" class="btn btn-secondary">
-            </form>
+        <div class="row">
+            <a href="{{ url('/cetak_pdf') }}" class="btn btn-primary">Download PDF</a>
+            <div class="col-md-12">
+                <div class="card border-0 shadow rounded">
+                    <div class="card-body">
+                        <table class="table table-bordered">
+                            <thead>
+                              <tr>
+                                <th scope="col"><center>TANGGAL</center></th>
+                                <th scope="col"><center>GAMBAR</center></th>
+                                <th scope="col"><center>HARGA</center></th>
+                                <th scope="col"><center>DESKRIPSI</center></th>
+                                <th scope="col"><center>STOK</center></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                              @forelse ($katalogs as $katalog)
+                                <tr>
+                                    <td>{{ $katalog->tanggal }}</td>
+                                    <td class="text-center">
+                                        <img src="{{ Storage::url('public/katalogs/').$katalog->gambar }}" class="rounded" style="width: 150px">
+                                    </td>
+                                    <td>Rp. {{number_format($katalog->harga, 0, ',', '.') }}</td>
+                                    <td>{{ $katalog->deskripsi }}</td>
+                                    <td>{{ $katalog->stok }}</td>
+                                </tr>
+                              @empty
+                                  <div class="alert alert-danger">
+                                      Data katalog belum Tersedia.
+                                  </div>
+                              @endforelse
+                            </tbody>
+                          </table>  
+                    </div>
+                </div>
+            </div>
         </div>
-        <br>
-        <table class="table table-bordered table-striped">
-            <thead>
-                <tr>
-                    <th>No</th>
-                    <th>Username</th>
-                    <th>Email</th>
-                    <th>Role</th>
-                    <th>Aksi</th>
-                </tr>
-            </thead>
-            <tbody>
-                @forelse ($users as $user)
-                <tr>
-                    <td class="text-center">{{ $loop->iteration }}</td>
-                    <td>{{ $user->name }}</td>
-                    <td>{{ $user->email }}</td>
-                    <td>{{ $user->role }}</td>
-                    <td class="text-center">
-                        <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('user.destroy', $user->id) }}" method="POST">
-                            <a href="{{ route('user.edit', $user->id) }}" class="btn btn-sm btn-warning">EDIT</a>
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-sm btn-danger">HAPUS</button>
-                        </form>
-                    </td>
-                </tr>
-                @empty
-                <div class="alert alert-danger">
-                    Data user belum Tersedia.
-                </div>
-                @endforelse
-                {{ $users->links() }}
-            </tbody>
-        </table>
     </div>
-</div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+    <script>
+        //message with toastr
+        @if(session()->has('success'))
+        
+            toastr.success('{{ session('success') }}', 'BERHASIL!'); 
+
+        @elseif(session()->has('error'))
+
+            toastr.error('{{ session('error') }}', 'GAGAL!'); 
+            
+        @endif
+    </script>

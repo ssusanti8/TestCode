@@ -15,7 +15,8 @@
     <link rel="stylesheet" href="/css/style.css">
     <title>Login</title>
 </head>
-<body style="background-image: url('/images/bg-login.jpg');">
+</head>
+<body style="background-image: url('/images/bgLogin1.jpg');" >
 <br><br><br><br>
     <div class="container mt-4">
         <div class="row justify-content-center">
@@ -74,11 +75,11 @@
                                     {{ __('Login') }}
                                 </button>
 
-                                @if (Route::has('password.request'))
+                                {{-- @if (Route::has('password.request'))
                                     <a class="btn btn-link" href="{{ route('password.request') }}">
                                         {{ __('Forgot Your Password?') }}
                                     </a>
-                                @endif
+                                @endif --}}
                             </div>
                         </div>
                     </form>

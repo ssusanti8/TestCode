@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="/css/style.css">
     <title>Register</title>
 </head>
-<body style="background-image: url('/images/bg-register.jpg');">
+<body style="background-image: url('/images/register.jpg');">
 <div class="container mt-4">
         <div class="row justify-content-center">
             <div class="col-lg-5">

@@ -40,15 +40,18 @@
             <li class="nav-item">
                         @can('Member')
                         <a class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-3 mb-1 text-muted border-bottom" aria-current="page" href="/dashboard">
-                            <b><span data-feather="arrow-left" class="align-text-bottom" style="font-weight: bold;">DASHBOARD Member</span></b>
+                            <b><span data-feather="arrow-left" class="align-text-bottom" style="font-weight: bold;">DASHBOARD MEMBER</span></b>
                         </a>
-                            <li class="nav-item"><a class="nav-link" href="{{ ('#') }}">Katalog Member</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{{ ('/pengumumanku') }}">Pemberitahuan</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{{ ('/katalogku') }}">Katalog Member</a></li>
                         @endcan
                         @can('Administrator')
                         <a class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-3 mb-1 text-muted border-bottom" aria-current="page" href="/dashboard">
-                            <b><span data-feather="arrow-left" class="align-text-bottom" style="font-weight: bold;">DASHBOARD Administrator</span></b>
+                            <b><span data-feather="arrow-left" class="align-text-bottom" style="font-weight: bold;"><center>DASHBOARD ADMINISTRATOR</center></span></b>
                         </a>
-                            <li class="nav-item"><a class="nav-link" href="{{ ('#') }}">Manage Katalog</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{{ ('/pengumuman') }}">Manage Pemberitahuan</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{{ ('/katalog') }}">Manage Katalog</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{{ ('/filexcels') }}">Manage Excel</a></li>
                             <li class="nav-item"><a class="nav-link" href="{{ ('/user') }}">Manage Member</a></li>
                         @endcan
             </li>
@@ -56,6 +59,7 @@
         </ul>
     </div>
 </nav>
+            
 <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
 <h1 class="h2">Edit Users</h1>
 <div class="col-lg-8">
